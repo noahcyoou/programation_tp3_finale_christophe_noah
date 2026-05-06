@@ -1,6 +1,610 @@
-﻿*{
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
+﻿/* css fait par claude ai*/
+
+/* ============================================================
+   PIZZERIA INFERNO — stylesheet.css
+   Aesthetic: Italian street-food maximalism · dark · fiery
+   Font: Playfair Display (display) + DM Sans (body)
+   ============================================================ */
+
+@import url("https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=DM+Sans:wght@300;400;500&display=swap");
+
+/* ── Variables ─────────────────────────────────────────────── */
+:root {
+  --bg: #0f0d0a;
+  --surface: #1a1510;
+  --card: #201a13;
+  --border: #3a2e20;
+  --fire1: #ff4500;
+  --fire2: #ff8c00;
+  --fire3: #ffd700;
+  --cream: #f5e6c8;
+  --muted: #9a8570;
+  --cheese: #f5c842;
+  --tomato: #c0392b;
+  --basil: #2ecc71;
+  --shadow: 0 8px 40px rgba(255, 69, 0, 0.25);
+  --glow: 0 0 30px rgba(255, 140, 0, 0.4);
 }
 
+/* ── Reset & Base ──────────────────────────────────────────── */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background-color: var(--bg);
+  background-image:
+    radial-gradient(
+      ellipse 80% 60% at 50% -10%,
+      rgba(255, 69, 0, 0.18) 0%,
+      transparent 70%
+    ),
+    repeating-linear-gradient(
+      0deg,
+      transparent,
+      transparent 39px,
+      rgba(255, 255, 255, 0.015) 39px,
+      rgba(255, 255, 255, 0.015) 40px
+    ),
+    repeating-linear-gradient(
+      90deg,
+      transparent,
+      transparent 39px,
+      rgba(255, 255, 255, 0.015) 39px,
+      rgba(255, 255, 255, 0.015) 40px
+    );
+  min-height: 100vh;
+  font-family: "DM Sans", sans-serif;
+  color: var(--cream);
+  padding: 0 0 80px;
+  overflow-x: hidden;
+}
+
+/* ── Grain overlay ─────────────────────────────────────────── */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+  pointer-events: none;
+  z-index: 999;
+  opacity: 0.6;
+}
+
+/* ── Form wrapper ──────────────────────────────────────────── */
+#formPizza {
+  max-width: 860px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+/* ── H1 ────────────────────────────────────────────────────── */
+#formPizza h1 {
+  font-family: "Playfair Display", serif;
+  font-size: clamp(2.8rem, 7vw, 5.5rem);
+  font-weight: 900;
+  font-style: italic;
+  line-height: 1;
+  text-align: center;
+  padding: 60px 0 16px;
+  background: linear-gradient(
+    135deg,
+    var(--fire3) 0%,
+    var(--fire2) 40%,
+    var(--fire1) 100%
+  );
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  filter: drop-shadow(0 0 30px rgba(255, 140, 0, 0.5));
+  animation: titleDrop 0.9s cubic-bezier(0.22, 1, 0.36, 1) both;
+  position: relative;
+}
+
+#formPizza h1::after {
+  content: "🔥";
+  display: block;
+  font-size: 2rem;
+  -webkit-text-fill-color: initial;
+  filter: none;
+  text-align: center;
+  margin-top: 8px;
+  animation: flicker 2.5s ease-in-out infinite;
+}
+
+/* ── Pizza CSS art — one per card ──────────────────────────── */
+/* Each fieldset gets a pizza illustration via ::before pseudo */
+
+fieldset {
+  position: relative;
+  border: 1.5px solid var(--border);
+  border-radius: 20px;
+  background: var(--card);
+  padding: 28px 28px 24px 200px; /* room for the pizza art */
+  margin: 28px 0;
+  overflow: hidden;
+  box-shadow: var(--shadow);
+  transition:
+    transform 0.3s ease,
+    box-shadow 0.3s ease;
+  animation: cardSlide 0.6s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+fieldset:nth-child(2) {
+  animation-delay: 0.05s;
+}
+fieldset:nth-child(3) {
+  animation-delay: 0.15s;
+}
+fieldset:nth-child(4) {
+  animation-delay: 0.25s;
+}
+fieldset:nth-child(5) {
+  animation-delay: 0.35s;
+}
+
+fieldset:hover {
+  transform: translateY(-4px) scale(1.01);
+  box-shadow: var(--glow), var(--shadow);
+}
+
+/* ── Pizza illustration base (CSS only) ────────────────────── */
+fieldset::before {
+  content: "";
+  position: absolute;
+  left: 20px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 148px;
+  height: 148px;
+  border-radius: 50%;
+  background:
+    /* crust ring */
+    radial-gradient(
+      circle at 50% 50%,
+      transparent 68%,
+      #c4884a 68%,
+      #c4884a 78%,
+      #a0622e 78%,
+      #a0622e 84%,
+      transparent 84%
+    ),
+    /* tomato sauce */
+    radial-gradient(circle at 50% 50%, var(--tomato) 68%, transparent 68%);
+  box-shadow:
+    0 0 0 3px #a0622e,
+    0 6px 24px rgba(0, 0, 0, 0.6),
+    inset 0 -4px 12px rgba(0, 0, 0, 0.3);
+  animation: spinSlow 18s linear infinite;
+  z-index: 1;
+}
+
+/* ── Cheese layer ──────────────────────────────────────────── */
+fieldset::after {
+  content: "";
+  position: absolute;
+  left: 20px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 148px;
+  height: 148px;
+  border-radius: 50%;
+  background:
+    radial-gradient(
+      ellipse 30px 20px at 35% 35%,
+      var(--cheese) 80%,
+      transparent 80%
+    ),
+    radial-gradient(
+      ellipse 22px 28px at 65% 30%,
+      var(--cheese) 80%,
+      transparent 80%
+    ),
+    radial-gradient(
+      ellipse 35px 18px at 55% 60%,
+      var(--cheese) 80%,
+      transparent 80%
+    ),
+    radial-gradient(
+      ellipse 20px 25px at 30% 65%,
+      var(--cheese) 80%,
+      transparent 80%
+    ),
+    radial-gradient(
+      ellipse 28px 16px at 70% 65%,
+      var(--cheese) 80%,
+      transparent 80%
+    ),
+    radial-gradient(
+      circle at 50% 50%,
+      rgba(245, 200, 66, 0.35) 67%,
+      transparent 67%
+    );
+  animation: spinSlow 18s linear infinite;
+  z-index: 2;
+  pointer-events: none;
+}
+
+/* ── Pepperoni pizza toppings ──────────────────────────────── */
+fieldset:nth-of-type(1)::after {
+  /* Pepperoni — red circles */
+  background:
+    radial-gradient(circle 10px at 38% 35%, #8b0000 80%, transparent 80%),
+    radial-gradient(circle 10px at 62% 40%, #8b0000 80%, transparent 80%),
+    radial-gradient(circle 10px at 45% 62%, #8b0000 80%, transparent 80%),
+    radial-gradient(circle 10px at 30% 58%, #8b0000 80%, transparent 80%),
+    radial-gradient(circle 10px at 60% 62%, #8b0000 80%, transparent 80%),
+    radial-gradient(
+      ellipse 30px 20px at 35% 35%,
+      var(--cheese) 80%,
+      transparent 80%
+    ),
+    radial-gradient(
+      ellipse 22px 28px at 65% 30%,
+      var(--cheese) 80%,
+      transparent 80%
+    ),
+    radial-gradient(
+      ellipse 35px 18px at 55% 60%,
+      var(--cheese) 80%,
+      transparent 80%
+    ),
+    radial-gradient(
+      ellipse 20px 25px at 30% 65%,
+      var(--cheese) 80%,
+      transparent 80%
+    ),
+    radial-gradient(
+      circle at 50% 50%,
+      rgba(245, 200, 66, 0.35) 67%,
+      transparent 67%
+    );
+}
+
+/* ── Margherita — basil dots ────────────────────────────────── */
+fieldset:nth-of-type(2)::after {
+  background:
+    radial-gradient(
+      ellipse 14px 10px at 40% 38%,
+      var(--basil) 80%,
+      transparent 80%
+    ),
+    radial-gradient(
+      ellipse 10px 14px at 60% 45%,
+      var(--basil) 80%,
+      transparent 80%
+    ),
+    radial-gradient(
+      ellipse 12px 8px at 50% 60%,
+      var(--basil) 80%,
+      transparent 80%
+    ),
+    radial-gradient(
+      ellipse 8px 12px at 32% 57%,
+      var(--basil) 80%,
+      transparent 80%
+    ),
+    radial-gradient(
+      ellipse 30px 20px at 35% 35%,
+      var(--cheese) 80%,
+      transparent 80%
+    ),
+    radial-gradient(
+      ellipse 22px 28px at 65% 30%,
+      var(--cheese) 80%,
+      transparent 80%
+    ),
+    radial-gradient(
+      ellipse 35px 18px at 55% 60%,
+      var(--cheese) 80%,
+      transparent 80%
+    ),
+    radial-gradient(
+      circle at 50% 50%,
+      rgba(245, 200, 66, 0.35) 67%,
+      transparent 67%
+    );
+}
+
+/* ── Végétarienne — multicolor veggies ──────────────────────── */
+fieldset:nth-of-type(3)::after {
+  background:
+    radial-gradient(ellipse 12px 16px at 42% 38%, #e74c3c 80%, transparent 80%),
+    radial-gradient(ellipse 16px 10px at 60% 42%, #f39c12 80%, transparent 80%),
+    radial-gradient(ellipse 10px 14px at 35% 60%, #27ae60 80%, transparent 80%),
+    radial-gradient(ellipse 14px 9px at 58% 62%, #e74c3c 80%, transparent 80%),
+    radial-gradient(
+      ellipse 30px 20px at 35% 35%,
+      var(--cheese) 80%,
+      transparent 80%
+    ),
+    radial-gradient(
+      ellipse 22px 28px at 65% 30%,
+      var(--cheese) 80%,
+      transparent 80%
+    ),
+    radial-gradient(
+      ellipse 35px 18px at 55% 60%,
+      var(--cheese) 80%,
+      transparent 80%
+    ),
+    radial-gradient(
+      circle at 50% 50%,
+      rgba(245, 200, 66, 0.35) 67%,
+      transparent 67%
+    );
+}
+
+/* ── Sicilienne — olives (dark) ─────────────────────────────── */
+fieldset:nth-of-type(4)::after {
+  background:
+    radial-gradient(circle 8px at 40% 38%, #1a1a2e 80%, transparent 80%),
+    radial-gradient(circle 8px at 60% 44%, #1a1a2e 80%, transparent 80%),
+    radial-gradient(circle 8px at 48% 62%, #1a1a2e 80%, transparent 80%),
+    radial-gradient(circle 8px at 32% 58%, #1a1a2e 80%, transparent 80%),
+    radial-gradient(circle 8px at 63% 60%, #1a1a2e 80%, transparent 80%),
+    radial-gradient(
+      ellipse 30px 20px at 35% 35%,
+      var(--cheese) 80%,
+      transparent 80%
+    ),
+    radial-gradient(
+      ellipse 22px 28px at 65% 30%,
+      var(--cheese) 80%,
+      transparent 80%
+    ),
+    radial-gradient(
+      ellipse 35px 18px at 55% 60%,
+      var(--cheese) 80%,
+      transparent 80%
+    ),
+    radial-gradient(
+      ellipse 20px 25px at 30% 65%,
+      var(--cheese) 80%,
+      transparent 80%
+    ),
+    radial-gradient(
+      circle at 50% 50%,
+      rgba(245, 200, 66, 0.35) 67%,
+      transparent 67%
+    );
+}
+
+/* ── Legend ─────────────────────────────────────────────────── */
+legend {
+  font-family: "Playfair Display", serif;
+  font-size: 1.35rem;
+  font-weight: 700;
+  font-style: italic;
+  color: var(--fire2);
+  padding: 0 12px;
+  letter-spacing: 0.02em;
+  text-shadow: 0 0 20px rgba(255, 140, 0, 0.5);
+  position: relative;
+  z-index: 3;
+}
+
+/* ── Divs (ligne1 / ligne2) ─────────────────────────────────── */
+fieldset > div {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 14px;
+  position: relative;
+  z-index: 3;
+}
+
+/* ── Labels ─────────────────────────────────────────────────── */
+fieldset > div > label:first-of-type {
+  font-family: "DM Sans", sans-serif;
+  font-weight: 500;
+  font-size: 1.05rem;
+  color: var(--cream);
+  cursor: pointer;
+  transition: color 0.2s;
+}
+
+fieldset > div > label:first-of-type:hover {
+  color: var(--fire2);
+}
+
+/* garniture labels */
+fieldset > div label + label,
+fieldset > div input[type="checkbox"] ~ label {
+  font-size: 0.88rem;
+  font-weight: 400;
+  color: var(--muted);
+  cursor: pointer;
+  transition: color 0.2s ease;
+  padding: 3px 6px;
+  border-radius: 6px;
+}
+
+fieldset > div input[type="checkbox"]:checked + label {
+  color: var(--fire3);
+}
+
+/* ── Checkboxes ─────────────────────────────────────────────── */
+input[type="checkbox"] {
+  appearance: none;
+  -webkit-appearance: none;
+  width: 20px;
+  height: 20px;
+  border: 2px solid var(--border);
+  border-radius: 5px;
+  background: var(--surface);
+  cursor: pointer;
+  position: relative;
+  flex-shrink: 0;
+  transition:
+    border-color 0.2s,
+    background 0.2s,
+    box-shadow 0.2s;
+}
+
+input[type="checkbox"]:hover {
+  border-color: var(--fire2);
+  box-shadow: 0 0 8px rgba(255, 140, 0, 0.35);
+}
+
+input[type="checkbox"]:checked {
+  background: linear-gradient(135deg, var(--fire2), var(--fire1));
+  border-color: var(--fire1);
+  box-shadow: 0 0 12px rgba(255, 69, 0, 0.5);
+}
+
+input[type="checkbox"]:checked::after {
+  content: "✓";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: #fff;
+  font-size: 13px;
+  font-weight: 700;
+  line-height: 1;
+  animation: checkPop 0.2s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+}
+
+/* ── Number input ───────────────────────────────────────────── */
+input[type="number"] {
+  width: 70px !important;
+  background: var(--surface);
+  border: 1.5px solid var(--border);
+  border-radius: 8px;
+  color: var(--cream);
+  font-family: "DM Sans", sans-serif;
+  font-size: 1rem;
+  font-weight: 500;
+  padding: 6px 10px;
+  text-align: center;
+  transition:
+    border-color 0.2s,
+    box-shadow 0.2s;
+  -moz-appearance: textfield;
+}
+
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+  opacity: 1;
+  filter: invert(0.7) sepia(1) saturate(3) hue-rotate(340deg);
+}
+
+input[type="number"]:focus {
+  outline: none;
+  border-color: var(--fire2);
+  box-shadow: 0 0 14px rgba(255, 140, 0, 0.35);
+}
+
+/* ── Decorative fire strip at top ───────────────────────────── */
+#formPizza::before {
+  content: "";
+  display: block;
+  height: 4px;
+  width: 100%;
+  background: linear-gradient(
+    90deg,
+    var(--fire1),
+    var(--fire2),
+    var(--fire3),
+    var(--fire2),
+    var(--fire1)
+  );
+  background-size: 200% 100%;
+  border-radius: 0 0 4px 4px;
+  margin-bottom: 0;
+  animation: fireSlide 3s linear infinite;
+}
+
+/* ── Keyframes ──────────────────────────────────────────────── */
+@keyframes titleDrop {
+  from {
+    opacity: 0;
+    transform: translateY(-30px) scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes cardSlide {
+  from {
+    opacity: 0;
+    transform: translateX(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes spinSlow {
+  from {
+    transform: translateY(-50%) rotate(0deg);
+  }
+  to {
+    transform: translateY(-50%) rotate(360deg);
+  }
+}
+
+@keyframes flicker {
+  0%,
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.7;
+    transform: scale(1.1) rotate(-5deg);
+  }
+}
+
+@keyframes fireSlide {
+  from {
+    background-position: 0% 50%;
+  }
+  to {
+    background-position: 200% 50%;
+  }
+}
+
+@keyframes checkPop {
+  from {
+    transform: translate(-50%, -50%) scale(0);
+  }
+  to {
+    transform: translate(-50%, -50%) scale(1);
+  }
+}
+
+/* ── Responsive ─────────────────────────────────────────────── */
+@media (max-width: 600px) {
+  fieldset {
+    padding: 80px 20px 24px 20px;
+  }
+
+  fieldset::before,
+  fieldset::after {
+    width: 100px;
+    height: 100px;
+    top: 16px;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+
+  fieldset::after {
+    top: 16px;
+    transform: translateX(-50%);
+    animation: none;
+  }
+
+  fieldset::before {
+    animation: none;
+  }
+}
