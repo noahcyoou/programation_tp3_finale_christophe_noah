@@ -1,5 +1,4 @@
-
-// --- Initialisation du conteneur principal ---
+// conteneur principal
 let formPizza = document.getElementById("formPizza");
 
 // Titre de la page
@@ -7,13 +6,13 @@ let titre = document.createElement("h1");
 titre.textContent = "Commande de Pizzas";
 formPizza.appendChild(titre);
 
-// --- 1. SÉLECTION DES PIZZAS (Dynamique) ---
+// selection pizza
 let nomsPizzas = ["Margherita", "Pepperoni", "Végétarienne", "Sicilienne"];
 let garnituresOptions = {
-  "Margherita": ["Fromage", "Champignons", "Oignons"],
-  "Pepperoni": ["Fromage", "Champignons", "Olive"],
-  "Végétarienne": ["Fromage", "Tomates", "Poivrons"],
-  "Sicilienne": ["Fromage", "Olives", "Herbes"]
+  Margherita: ["Fromage", "Champignons", "Oignons"],
+  Pepperoni: ["Fromage", "Champignons", "Olive"],
+  Végétarienne: ["Fromage", "Tomates", "Poivrons"],
+  Sicilienne: ["Fromage", "Olives", "Herbes"],
 };
 
 for (let i = 0; i < nomsPizzas.length; i++) {
@@ -23,116 +22,116 @@ for (let i = 0; i < nomsPizzas.length; i++) {
   legend.textContent = "Pizza " + nom + " :";
   fieldset.appendChild(legend);
 
-  // Checkbox de sélection et Quantité
-  let p1 = document.createElement("p");
+  // checkbox et quantité
+  let paragraphe1 = document.createElement("p");
   let checkPizza = document.createElement("input");
   checkPizza.type = "checkbox";
-  checkPizza.id = "chk" + nom;
+  checkPizza.id = "check" + nom;
   checkPizza.name = "pizzaSelection";
-  
-  let lblPizza = document.createElement("label");
-  lblPizza.textContent = " " + nom + " Quantité : ";
-  lblPizza.setAttribute("for", "chk" + nom);
 
-  let qteInput = document.createElement("input");
-  qteInput.type = "number";
-  qteInput.id = "qte" + nom;
-  qteInput.min = 0;
-  qteInput.max = 50;
-  qteInput.value = 0;
+  let labelPizza = document.createElement("label");
+  labelPizza.textContent = " " + nom + " Quantité : ";
+  labelPizza.setAttribute("for", "check" + nom);
 
-  p1.appendChild(checkPizza);
-  p1.appendChild(lblPizza);
-  p1.appendChild(qteInput);
-  fieldset.appendChild(p1);
+  let qtnInput = document.createElement("input");
+  qtnInput.type = "number";
+  qtnInput.id = "qtn" + nom;
+  qtnInput.min = 0;
+  qtnInput.max = 50;
+  qtnInput.value = 0;
+
+  paragraphe1.appendChild(checkPizza);
+  paragraphe1.appendChild(labelPizza);
+  paragraphe1.appendChild(qtnInput);
+  fieldset.appendChild(paragraphe1);
 
   // Garnitures (3 options par pizza)
-  let p2 = document.createElement("p");
-  p2.textContent = "Garnitures : ";
+  let paragraphe2 = document.createElement("p");
+  paragraphe2.textContent = "Garnitures : ";
   let options = garnituresOptions[nom];
-  
+
   for (let j = 0; j < options.length; j++) {
-    let gName = options[j];
-    let chkG = document.createElement("input");
-    chkG.type = "checkbox";
-    chkG.id = "g" + nom + j;
-    chkG.className = "garniture" + nom;
-    chkG.value = gName;
+    let nomGarniture = options[j];
+    let check = document.createElement("input");
+    check.type = "checkbox";
+    check.id = "g" + nom + j;
+    check.className = "garniture" + nom;
+    check.value = nomGarniture;
 
-    let lblG = document.createElement("label");
-    lblG.textContent = " " + gName + " ";
-    lblG.setAttribute("for", "g" + nom + j);
+    let labelGarniture = document.createElement("label");
+    labelGarniture.textContent = " " + nomGarniture + " ";
+    labelGarniture.setAttribute("for", "g" + nom + j);
 
-    p2.appendChild(chkG);
-    p2.appendChild(lblG);
+    paragraphe2.appendChild(check);
+    paragraphe2.appendChild(labelGarniture);
   }
-  fieldset.appendChild(p2);
+  fieldset.appendChild(paragraphe2);
   formPizza.appendChild(fieldset);
 }
 
-// --- 2. MODE DE PAIEMENT (Boutons Radio) ---
+// mode de paiment (boutons radio)
 let fsPaye = document.createElement("fieldset");
-let legPaye = document.createElement("legend");
-legPaye.textContent = "Mode de paiement :";
-fsPaye.appendChild(legPaye);
+let legendPaye = document.createElement("legend");
+legendPaye.textContent = "Mode de paiement :";
+fsPaye.appendChild(legendPaye);
 
-let modes = [
+let modePaye = [
   { txt: "Carte de Crédit (En ligne)", val: "enLigne" },
   { txt: "Débit/Crédit (À la porte)", val: "porteCard" },
-  { txt: "Espèces (À la porte)", val: "especes" }
+  { txt: "Espèces (À la porte)", val: "especes" },
 ];
 
-for (let i = 0; i < modes.length; i++) {
-  let rd = document.createElement("input");
-  rd.type = "radio";
-  rd.name = "modePaiement";
-  rd.id = "pay" + i;
-  rd.value = modes[i].val;
-  
-  let lbl = document.createElement("label");
-  lbl.textContent = modes[i].txt;
-  lbl.setAttribute("for", "pay" + i);
-  
-  fsPaye.appendChild(rd);
-  fsPaye.appendChild(lbl);
+for (let i = 0; i < modePaye.length; i++) {
+  let radio = document.createElement("input");
+  radio.type = "radio";
+  radio.name = "modePaiement";
+  radio.id = "pay" + i;
+  radio.value = modePaye[i].val;
+
+  let label = document.createElement("label");
+  label.textContent = modePaye[i].txt;
+  label.setAttribute("for", "pay" + i);
+
+  fsPaye.appendChild(radio);
+  fsPaye.appendChild(label);
   fsPaye.appendChild(document.createElement("br"));
 }
 formPizza.appendChild(fsPaye);
 
-// --- 3. INFORMATIONS CLIENT ---
+// information clients
 function creerChamp(parent, labelTxt, inputId, inputType = "text") {
-  let p = document.createElement("p");
-  let lbl = document.createElement("label");
-  lbl.textContent = labelTxt + " : ";
-  let inp = document.createElement("input");
-  inp.type = inputType;
-  inp.id = inputId;
-  p.appendChild(lbl);
-  p.appendChild(inp);
-  parent.appendChild(p);
+  let paragraphe = document.createElement("p");
+  let label = document.createElement("label");
+  label.textContent = labelTxt + " : ";
+  let input = document.createElement("input");
+  input.type = inputType;
+  input.id = inputId;
+  paragraphe.appendChild(label);
+  paragraphe.appendChild(input);
+  parent.appendChild(paragraphe);
 }
 
 let fsClient = document.createElement("fieldset");
-let legClient = document.createElement("legend");
-legClient.textContent = "Informations sur le client :";
-fsClient.appendChild(legClient);
+let legendClient = document.createElement("legend");
+legendClient.textContent = "Informations sur le client :";
+fsClient.appendChild(legendClient);
 creerChamp(fsClient, "Nom", "nomClient");
 creerChamp(fsClient, "Prénom", "prenomClient");
 creerChamp(fsClient, "Téléphone", "telClient", "tel");
 creerChamp(fsClient, "Adresse complète", "adrClient");
 formPizza.appendChild(fsClient);
 
-// --- 4. INFORMATIONS LIVRAISON ---
+//  info livraison
 let fsLivraison = document.createElement("fieldset");
-let legLivraison = document.createElement("legend");
-legLivraison.textContent = "Informations sur la livraison :";
-fsLivraison.appendChild(legLivraison);
+let legendLivraison = document.createElement("legend");
+legendLivraison.textContent = "Informations sur la livraison :";
+fsLivraison.appendChild(legendLivraison);
 creerChamp(fsLivraison, "Nom et prénom", "nomLivraison");
 creerChamp(fsLivraison, "Téléphone", "telLivraison", "tel");
 creerChamp(fsLivraison, "Adresse de livraison", "adrLivraison");
 formPizza.appendChild(fsLivraison);
 
-// --- 5. BOUTON COMMANDER ---
+// boutton commander ---
 let btnCommander = document.createElement("button");
 btnCommander.textContent = "Commander";
 btnCommander.type = "button";
@@ -143,9 +142,9 @@ let zoneFacture = document.createElement("div");
 zoneFacture.id = "zoneFacture";
 formPizza.appendChild(zoneFacture);
 
-// --- LOGIQUE JAVASCRIPT ---
+// fonction on click
 
-btnCommander.onclick = function() {
+btnCommander.onclick = function () {
   // Validation des champs obligatoires
   if (document.getElementById("nomClient").value == "") {
     alert("Le nom est obligatoire !");
@@ -179,7 +178,7 @@ btnCommander.onclick = function() {
   // Vérifier qu'au moins une pizza est cochée
   let unePizzaChoisie = false;
   for (let i = 0; i < nomsPizzas.length; i++) {
-    if (document.getElementById("chk" + nomsPizzas[i]).checked) {
+    if (document.getElementById("check" + nomsPizzas[i]).checked) {
       unePizzaChoisie = true;
     }
   }
@@ -191,9 +190,10 @@ btnCommander.onclick = function() {
   // Vérifier qu'un mode de paiement est choisi
   let modeChoisiAvant = "";
   let radios = document.getElementsByName("modePaiement");
-  for (let r of radios) {
-    if (r.checked) {
-      modeChoisiAvant = r.value;
+
+  for (let i = 0; i < radios.length; i++) {
+    if (radios[i].checked) {
+      modeChoisiAvant = radios[i].value;
     }
   }
   if (modeChoisiAvant == "") {
@@ -201,65 +201,83 @@ btnCommander.onclick = function() {
     return;
   }
 
-  // Désactiver le bouton commander pour éviter de recommencer
+  // Désactiver le bouton commander pour pas recommencer
   btnCommander.disabled = true;
 
-  // Génération de la facture (Tableau HTML)
+  // facture
   zoneFacture.innerHTML = "<h2>Facture</h2>";
   let table = document.createElement("table");
   table.border = "1";
-  table.innerHTML = "<tr><th>Item</th><th>Prix Unitaire</th><th>Quantité</th><th>Total</th></tr>";
-  
+  table.innerHTML =
+    "<tr><th>Item</th><th>Prix Unitaire</th><th>Quantité</th><th>Total</th></tr>";
+
   let grandTotal = 0;
   let prixPizza = 15;
   let prixGarniture = 2;
 
   for (let i = 0; i < nomsPizzas.length; i++) {
     let nom = nomsPizzas[i];
-    if (document.getElementById("chk" + nom).checked) {
-      let qte = parseInt(document.getElementById("qte" + nom).value);
-      let totalP = qte * prixPizza;
+    if (document.getElementById("check" + nom).checked) {
+      let qtn = parseInt(document.getElementById("qtn" + nom).value);
+      let totalP = qtn * prixPizza;
       grandTotal += totalP;
-      
+
       let row = table.insertRow();
-      row.innerHTML = "<td>Pizza " + nom + "</td><td>" + prixPizza + "$</td><td>" + qte + "</td><td>" + totalP + "$</td>";
-      
+      row.innerHTML =
+        "<td>Pizza " +
+        nom +
+        "</td><td>" +
+        prixPizza +
+        "$</td><td>" +
+        qtn +
+        "</td><td>" +
+        totalP +
+        "$</td>";
+
       // Garnitures cochées pour cette pizza
-      let gs = document.getElementsByClassName("garniture" + nom);
-      for (let j = 0; j < gs.length; j++) {
-        if (gs[j].checked) {
-          let totalG = qte * prixGarniture;
-          grandTotal += totalG;
-          let rowG = table.insertRow();
-          rowG.innerHTML = "<td> - " + gs[j].value + "</td><td>" + prixGarniture + "$</td><td>" + qte + "</td><td>" + totalG + "$</td>";
+      let garniture = document.getElementsByClassName("garniture" + nom);
+      for (let j = 0; j < garniture.length; j++) {
+        if (garniture[j].checked) {
+          let totalGarniture = qtn * prixGarniture;
+          grandTotal += totalGarniture;
+          let rowGarniture = table.insertRow();
+          rowGarniture.innerHTML =
+            "<td> - " +
+            garniture[j].value +
+            "</td><td>" +
+            prixGarniture +
+            "$</td><td>" +
+            qtn +
+            "</td><td>" +
+            totalGarniture +
+            "$</td>";
         }
       }
     }
   }
 
   zoneFacture.appendChild(table);
-  let pTotal = document.createElement("p");
-  pTotal.innerHTML = "<strong>Montant total : " + grandTotal + "$</strong>";
-  zoneFacture.appendChild(pTotal);
+  let prixTotal = document.createElement("p");
+  prixTotal.innerHTML = "<strong>Montant total : " + grandTotal + "$</strong>";
+  zoneFacture.appendChild(prixTotal);
 
-  // Apparition dynamique du bouton Payer
+  // Apparitionu bouton payer
   let btnPayer = document.createElement("button");
   btnPayer.textContent = "Payer ma commande";
   zoneFacture.appendChild(btnPayer);
 
-  btnPayer.onclick = function() {
+  btnPayer.onclick = function () {
     // Désactiver le bouton payer pour éviter de répéter le paiement
     btnPayer.disabled = true;
 
-    let modeChoisi = "";
-    for (let r of radios) {
-      if (r.checked) {
-        modeChoisi = r.value;
+    for (let i = 0; i < radios.length; i++) {
+      if (radios[i].checked) {
+        modeChoisi = radios[i].value;
       }
     }
 
     if (modeChoisi === "enLigne") {
-      // Interface de paiement fictive
+      // Interface de paiement
       let interfacePay = document.createElement("div");
       interfacePay.style.border = "2px solid red";
       interfacePay.style.padding = "10px";
@@ -270,8 +288,8 @@ btnCommander.onclick = function() {
       let btnFinal = document.createElement("button");
       btnFinal.textContent = "Confirmer le paiement de " + grandTotal + "$";
 
-      btnFinal.onclick = function() {
-        // Désactiver le bouton confirmer pour éviter de confirmer deux fois
+      btnFinal.onclick = function () {
+        // Désactiver le bouton confirmer
         btnFinal.disabled = true;
         alert("Paiement réussi ! Merci.");
       };
