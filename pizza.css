@@ -146,6 +146,15 @@ fieldset:nth-child(4) {
 fieldset:nth-child(5) {
   animation-delay: 0.35s;
 }
+fieldset:nth-child(6) {
+  animation-delay: 0.45s;
+}
+fieldset:nth-child(7) {
+  animation-delay: 0.55s;
+}
+fieldset:nth-child(8) {
+  animation-delay: 0.65s;
+}
 
 fieldset:hover {
   transform: translateY(-4px) scale(1.01);
@@ -374,6 +383,22 @@ fieldset:nth-of-type(4)::after {
     );
 }
 
+/* ── Paiement, Client, Livraison — no pizza art ─────────────── */
+fieldset:nth-of-type(5),
+fieldset:nth-of-type(6),
+fieldset:nth-of-type(7) {
+  padding: 28px 28px 24px 28px;
+}
+
+fieldset:nth-of-type(5)::before,
+fieldset:nth-of-type(5)::after,
+fieldset:nth-of-type(6)::before,
+fieldset:nth-of-type(6)::after,
+fieldset:nth-of-type(7)::before,
+fieldset:nth-of-type(7)::after {
+  display: none;
+}
+
 /* ── Legend ─────────────────────────────────────────────────── */
 legend {
   font-family: "Playfair Display", serif;
@@ -390,6 +415,17 @@ legend {
 
 /* ── Divs (ligne1 / ligne2) ─────────────────────────────────── */
 fieldset > div {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 14px;
+  position: relative;
+  z-index: 3;
+}
+
+/* ── p tags inside fieldsets ────────────────────────────────── */
+fieldset > p {
   display: flex;
   align-items: center;
   flex-wrap: wrap;
@@ -426,6 +462,30 @@ fieldset > div input[type="checkbox"] ~ label {
 }
 
 fieldset > div input[type="checkbox"]:checked + label {
+  color: var(--fire3);
+}
+
+/* ── p labels (pizza checkboxes + garnitures) ───────────────── */
+fieldset > p > label {
+  font-family: "DM Sans", sans-serif;
+  font-weight: 500;
+  font-size: 1rem;
+  color: var(--cream);
+  cursor: pointer;
+  transition: color 0.2s;
+}
+
+fieldset > p > input[type="checkbox"] ~ label {
+  font-size: 0.88rem;
+  font-weight: 400;
+  color: var(--muted);
+  cursor: pointer;
+  padding: 3px 6px;
+  border-radius: 6px;
+  transition: color 0.2s;
+}
+
+fieldset > p > input[type="checkbox"]:checked + label {
   color: var(--fire3);
 }
 
@@ -471,6 +531,144 @@ input[type="checkbox"]:checked::after {
   animation: checkPop 0.2s cubic-bezier(0.34, 1.56, 0.64, 1) both;
 }
 
+/* ── Radio buttons ──────────────────────────────────────────── */
+input[type="radio"] {
+  appearance: none;
+  -webkit-appearance: none;
+  width: 20px;
+  height: 20px;
+  border: 2px solid var(--border);
+  border-radius: 50%;
+  background: var(--surface);
+  cursor: pointer;
+  position: relative;
+  flex-shrink: 0;
+  transition:
+    border-color 0.2s,
+    background 0.2s,
+    box-shadow 0.2s;
+  vertical-align: middle;
+}
+
+input[type="radio"]:hover {
+  border-color: var(--fire2);
+  box-shadow: 0 0 8px rgba(255, 140, 0, 0.35);
+}
+
+input[type="radio"]:checked {
+  border-color: var(--fire1);
+  box-shadow: 0 0 12px rgba(255, 69, 0, 0.5);
+}
+
+input[type="radio"]:checked::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(1);
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--fire3), var(--fire1));
+  animation: checkPop 0.2s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+}
+
+/* ── Radio group layout ─────────────────────────────────────── */
+fieldset:nth-of-type(5) {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+fieldset:nth-of-type(5) br {
+  display: none;
+}
+
+fieldset:nth-of-type(5) label {
+  font-family: "DM Sans", sans-serif;
+  font-size: 0.95rem;
+  font-weight: 400;
+  color: var(--cream);
+  cursor: pointer;
+  padding: 10px 16px;
+  border-radius: 10px;
+  border: 1.5px solid transparent;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-top: 6px;
+  transition:
+    background 0.2s,
+    border-color 0.2s;
+}
+
+fieldset:nth-of-type(5) label:hover {
+  background: rgba(255, 140, 0, 0.06);
+  border-color: var(--border);
+}
+
+fieldset:nth-of-type(5) input[type="radio"]:checked + label {
+  color: var(--fire3);
+  background: rgba(255, 140, 0, 0.1);
+  border-color: rgba(255, 140, 0, 0.3);
+}
+
+fieldset:nth-of-type(5) input[type="radio"] {
+  margin-top: 6px;
+}
+
+/* ── Text & tel inputs ──────────────────────────────────────── */
+input[type="text"],
+input[type="tel"] {
+  background: var(--surface);
+  border: 1.5px solid var(--border);
+  border-radius: 8px;
+  color: var(--cream);
+  font-family: "DM Sans", sans-serif;
+  font-size: 0.95rem;
+  font-weight: 400;
+  padding: 8px 14px;
+  width: 100%;
+  max-width: 380px;
+  transition:
+    border-color 0.2s,
+    box-shadow 0.2s;
+}
+
+input[type="text"]:focus,
+input[type="tel"]:focus {
+  outline: none;
+  border-color: var(--fire2);
+  box-shadow: 0 0 14px rgba(255, 140, 0, 0.3);
+}
+
+input[type="text"]::placeholder,
+input[type="tel"]::placeholder {
+  color: var(--muted);
+  opacity: 0.6;
+}
+
+/* ── Client / Livraison p rows ──────────────────────────────── */
+fieldset:nth-of-type(6) > p,
+fieldset:nth-of-type(7) > p {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-top: 14px;
+  flex-wrap: wrap;
+}
+
+fieldset:nth-of-type(6) > p > label,
+fieldset:nth-of-type(7) > p > label {
+  font-family: "DM Sans", sans-serif;
+  font-size: 0.95rem;
+  font-weight: 500;
+  color: var(--muted);
+  min-width: 160px;
+  text-align: right;
+  flex-shrink: 0;
+}
+
 /* ── Number input ───────────────────────────────────────────── */
 input[type="number"] {
   width: 70px !important;
@@ -499,6 +697,280 @@ input[type="number"]:focus {
   outline: none;
   border-color: var(--fire2);
   box-shadow: 0 0 14px rgba(255, 140, 0, 0.35);
+}
+
+/* ── Bouton Commander ───────────────────────────────────────── */
+#formPizza > button {
+  display: block;
+  margin: 36px auto 0;
+  padding: 16px 52px;
+  background: linear-gradient(135deg, var(--fire1) 0%, var(--fire2) 100%);
+  border: none;
+  border-radius: 50px;
+  color: #fff;
+  font-family: "Playfair Display", serif;
+  font-size: 1.3rem;
+  font-style: italic;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  cursor: pointer;
+  box-shadow:
+    0 0 30px rgba(255, 69, 0, 0.45),
+    0 4px 20px rgba(0, 0, 0, 0.4);
+  transition:
+    transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1),
+    box-shadow 0.2s ease,
+    filter 0.2s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+#formPizza > button::before {
+  content: "🍕";
+  margin-right: 10px;
+  font-style: normal;
+}
+
+#formPizza > button:hover {
+  transform: translateY(-3px) scale(1.04);
+  box-shadow:
+    0 0 50px rgba(255, 140, 0, 0.6),
+    0 8px 30px rgba(0, 0, 0, 0.5);
+}
+
+#formPizza > button:active {
+  transform: scale(0.97);
+}
+
+#formPizza > button:disabled {
+  background: var(--border);
+  box-shadow: none;
+  cursor: not-allowed;
+  opacity: 0.5;
+  transform: none;
+}
+
+/* ── Zone Facture ───────────────────────────────────────────── */
+#zoneFacture {
+  margin-top: 40px;
+  background: var(--card);
+  border: 1.5px solid var(--border);
+  border-radius: 20px;
+  padding: 32px 36px;
+  box-shadow: var(--shadow);
+  animation: cardSlide 0.5s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+#zoneFacture h2 {
+  font-family: "Playfair Display", serif;
+  font-size: 2rem;
+  font-weight: 900;
+  font-style: italic;
+  background: linear-gradient(135deg, var(--fire3), var(--fire2));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  margin-bottom: 24px;
+  text-align: center;
+  letter-spacing: 0.02em;
+}
+
+#zoneFacture h2::before {
+  content: "📋 ";
+  -webkit-text-fill-color: initial;
+}
+
+/* ── Tableau facture ────────────────────────────────────────── */
+#zoneFacture table {
+  width: 100%;
+  border-collapse: collapse;
+  border: none;
+  margin-bottom: 20px;
+  font-family: "DM Sans", sans-serif;
+}
+
+#zoneFacture table th {
+  background: rgba(255, 69, 0, 0.15);
+  color: var(--fire2);
+  font-family: "Playfair Display", serif;
+  font-size: 0.95rem;
+  font-style: italic;
+  font-weight: 700;
+  padding: 12px 16px;
+  text-align: left;
+  border: 1px solid var(--border);
+  letter-spacing: 0.03em;
+}
+
+#zoneFacture table th:last-child,
+#zoneFacture table td:last-child {
+  text-align: right;
+}
+
+#zoneFacture table th:nth-child(2),
+#zoneFacture table th:nth-child(3),
+#zoneFacture table td:nth-child(2),
+#zoneFacture table td:nth-child(3) {
+  text-align: center;
+}
+
+#zoneFacture table td {
+  padding: 10px 16px;
+  border: 1px solid rgba(58, 46, 32, 0.5);
+  color: var(--cream);
+  font-size: 0.95rem;
+  font-weight: 400;
+  transition: background 0.2s;
+}
+
+#zoneFacture table tr:hover td {
+  background: rgba(255, 140, 0, 0.05);
+}
+
+/* Garniture rows (indented, muted) */
+#zoneFacture table td:first-child:not(:only-child) {
+  color: var(--cream);
+}
+
+#zoneFacture table tr td:first-child[data-garniture] {
+  color: var(--muted);
+  font-size: 0.88rem;
+}
+
+/* Alternating rows */
+#zoneFacture table tr:nth-child(even) td {
+  background: rgba(255, 255, 255, 0.02);
+}
+
+/* ── Montant total ───────────────────────────────────────────── */
+#zoneFacture > p {
+  text-align: right;
+  font-family: "Playfair Display", serif;
+  font-size: 1.3rem;
+  font-style: italic;
+  color: var(--fire3);
+  margin: 16px 0 24px;
+  padding-top: 12px;
+  border-top: 1.5px solid var(--border);
+  text-shadow: 0 0 20px rgba(255, 215, 0, 0.4);
+}
+
+/* ── Bouton Payer ───────────────────────────────────────────── */
+#zoneFacture > button {
+  display: block;
+  margin: 0 auto;
+  padding: 14px 44px;
+  background: linear-gradient(135deg, #27ae60 0%, #2ecc71 100%);
+  border: none;
+  border-radius: 50px;
+  color: #fff;
+  font-family: "Playfair Display", serif;
+  font-size: 1.15rem;
+  font-style: italic;
+  font-weight: 700;
+  letter-spacing: 0.03em;
+  cursor: pointer;
+  box-shadow:
+    0 0 24px rgba(46, 204, 113, 0.4),
+    0 4px 16px rgba(0, 0, 0, 0.4);
+  transition:
+    transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1),
+    box-shadow 0.2s;
+}
+
+#zoneFacture > button::before {
+  content: "💳 ";
+  font-style: normal;
+}
+
+#zoneFacture > button:hover {
+  transform: translateY(-3px) scale(1.04);
+  box-shadow:
+    0 0 40px rgba(46, 204, 113, 0.55),
+    0 8px 24px rgba(0, 0, 0, 0.5);
+}
+
+#zoneFacture > button:disabled {
+  background: var(--border);
+  box-shadow: none;
+  cursor: not-allowed;
+  opacity: 0.5;
+  transform: none;
+}
+
+/* ── Interface paiement en ligne ────────────────────────────── */
+#zoneFacture div[style] {
+  background: var(--surface) !important;
+  border: 1.5px solid rgba(255, 69, 0, 0.4) !important;
+  border-radius: 14px !important;
+  padding: 24px !important;
+  margin-top: 20px !important;
+  box-shadow: 0 0 20px rgba(255, 69, 0, 0.15) !important;
+}
+
+#zoneFacture div[style] h3 {
+  font-family: "Playfair Display", serif;
+  font-size: 1.2rem;
+  font-style: italic;
+  font-weight: 700;
+  color: var(--fire2);
+  margin-bottom: 18px;
+  text-align: center;
+}
+
+#zoneFacture div[style] p {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-top: 12px;
+  flex-wrap: wrap;
+}
+
+#zoneFacture div[style] p label {
+  font-family: "DM Sans", sans-serif;
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: var(--muted);
+  min-width: 140px;
+  text-align: right;
+  flex-shrink: 0;
+}
+
+#zoneFacture div[style] input[type="text"] {
+  max-width: 260px;
+}
+
+/* Bouton confirmer paiement */
+#zoneFacture div[style] button {
+  display: block;
+  margin: 20px auto 0;
+  padding: 12px 36px;
+  background: linear-gradient(135deg, var(--fire1), var(--fire2));
+  border: none;
+  border-radius: 50px;
+  color: #fff;
+  font-family: "Playfair Display", serif;
+  font-size: 1rem;
+  font-style: italic;
+  font-weight: 700;
+  cursor: pointer;
+  box-shadow: 0 0 20px rgba(255, 69, 0, 0.4);
+  transition:
+    transform 0.2s,
+    box-shadow 0.2s;
+}
+
+#zoneFacture div[style] button:hover {
+  transform: translateY(-2px) scale(1.03);
+  box-shadow: 0 0 32px rgba(255, 69, 0, 0.55);
+}
+
+#zoneFacture div[style] button:disabled {
+  background: var(--border);
+  box-shadow: none;
+  cursor: not-allowed;
+  opacity: 0.5;
+  transform: none;
 }
 
 /* ── Decorative fire strip at top ───────────────────────────── */
@@ -606,5 +1078,32 @@ input[type="number"]:focus {
 
   fieldset::before {
     animation: none;
+  }
+
+  fieldset:nth-of-type(5),
+  fieldset:nth-of-type(6),
+  fieldset:nth-of-type(7) {
+    padding: 20px 16px;
+  }
+
+  fieldset:nth-of-type(6) > p > label,
+  fieldset:nth-of-type(7) > p > label {
+    min-width: unset;
+    text-align: left;
+  }
+
+  input[type="text"],
+  input[type="tel"] {
+    max-width: 100%;
+  }
+
+  #zoneFacture {
+    padding: 20px 16px;
+  }
+
+  #zoneFacture table th,
+  #zoneFacture table td {
+    padding: 8px 10px;
+    font-size: 0.82rem;
   }
 }
